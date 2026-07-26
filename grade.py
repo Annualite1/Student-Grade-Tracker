@@ -1,0 +1,149 @@
+from database import connect_db, get_students
+from subjects_module import retrieve_subjects
+from grades_validation import  calculate_category, validate_marks
+
+students = get_students()
+subjects = retrieve_subjects()
+
+def insert_grades():    
+    db = connect_db()
+    cursor = db.cursor()
+    while True:
+        print(students)
+        student_id = int(input("Enter student's number that you want to give grades to :"))
+
+        for subject in subjects:
+            print(subject)
+        subject_id =  int(input("Enter subject id corrsponding to subject that you want to grade: "))
+
+        marks = float(input("Enter Grade: "))
+        if not validate_marks(marks):
+            print("Marks should be betwen 0 and 100")
+            continue
+
+        query = "INSERT INTO grades(student_id, subject_id, marks) VALUES(?, ?, ?)"
+        cursor.execute(query, (student_id, subject_id, marks))
+        db.commit()
+        option = input("Do you want to record another grade? : (yes/ no): ").lower()
+        if option != "yes":
+            break
+    db.close()
+    print("Recorded Grades successfully!")
+
+
+def retrieve_grades():
+    try:
+       db = connect_db()
+       cursor = db.cursor()
+       cursor.execute(
+           """SELECT grades.grade_id, students.full_name, subjects.subject_name, grades.marks 
+           FROM grades JOIN subjects on grades.subject_id=subjects.subject_id 
+           JOIN students on grades.student_id=students.student_id""")
+       grades = cursor.fetchall()
+       return grades      
+    except Exception as e:
+        return ("Oooops Error", e)
+    finally:
+        if db:
+            cursor.close()
+            db.close()
+
+
+def update_grade():
+
+    try:
+        db = connect_db()
+        cursor = db.cursor()
+        print(retrieve_grades())
+        grade_id = input("Enter Student's id whom you want to upgrade his marks ")
+        mark = int(input("Enter new grade :"))
+        query = "UPDATE grades SET marks=? WHERE grade_id=?"
+        cursor.execute(query, (mark, grade_id))
+        db.commit()
+        print("Updated Marks Successfully!!")
+        
+    except Exception as e:
+        return ("Oooops Error", e)
+    finally:
+        if db:
+            cursor.close()
+            db.close()
+
+
+def delete_grade():
+    try:
+       db = connect_db()
+       cursor = db.cursor() 
+       print(retrieve_grades())
+       grade_id = int(input("Enter the grade id you want to delete: "))
+       query = "DELETE FROM grades WHERE grade_id=?"
+       cursor.execute(query, (grade_id, ))
+       db.commit()
+       if cursor.rowcount > 0:
+            print( f"grade with {grade_id} deleted successfully.")
+       else:
+            print(f"grade with {grade_id} was not found.")
+    except Exception as e:
+        return ("Oooops Error", e)
+    finally:
+        if db:
+            cursor.close()
+            db.close()
+
+def student_average():
+    try: 
+        db = connect_db()
+        cursor = db.cursor()
+        print(get_students())
+        student_id = int(input("Enter Student to calculate his marks: "))
+        query = "SELECT AVG(marks) FROM grades where student_id = ?"
+        cursor.execute(query, (student_id, ))
+        avg = cursor.fetchone()[0]
+        print(f"Average: {avg}")
+        print(f"Student has grade {calculate_category(avg)}")
+        return(f"Average: {avg}")
+    except Exception as e:
+        return("Oooops Error:", e)
+    finally:
+        cursor.close()
+        db.close()
+
+
+def grades_module():
+    while True:
+            print("\n===== grades part =====")
+            print("1. Add grade")
+            print("2. View grades")
+            print("3. Update grade")
+            print("4. Delete grade")
+            print("5. Calculate student's average")
+            print("0. Exit")
+    
+            choice = input("Enter your choice: ")
+    
+            if choice == "1":
+                insert_grades()
+    
+            elif choice == "2":
+                grades = retrieve_grades()
+                print(grades)
+    
+            elif choice == "3":
+                update_grade()
+    
+            elif choice == "4":
+                delete_grade()
+                
+    
+            elif choice == "5":
+                student_average()
+    
+            elif choice == "0":
+                print("Goodbye!")
+                break
+    
+            else:
+                print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    grades_module()
