@@ -108,3 +108,42 @@ def student_average():
         cursor.close()
         db.close()
 
+
+def grades_module():
+    while True:
+            print("\n===== grades part =====")
+            print("1. Add grade")
+            print("2. View grades")
+            print("3. Update grade")
+            print("4. Delete grade")
+            print("5. Calculate student's average")
+            print("0. Exit")
+    
+            choice = input("Enter your choice: ")
+    
+            if choice == "1":
+                insert_grades()
+    
+            elif choice == "2":
+                grades = retrieve_grades()
+                print(grades)
+    
+            elif choice == "3":
+                update_grade()
+    
+            elif choice == "4":
+                delete_grade()
+                
+    
+            elif choice == "5":
+                student_average()
+    
+            elif choice == "0":
+                print("Goodbye!")
+                break
+    
+            else:
+                print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    grades_module()
