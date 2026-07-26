@@ -1,4 +1,4 @@
-from menu import student_menu, subject_menu, grade_menu, report_menu
+from student_menu import student_menu, subject_menu, grade_menu, report_menu
 from database import create_tables, create_default_users, login
 
 def main_menu():
