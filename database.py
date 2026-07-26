@@ -133,8 +133,47 @@ def search_student(student_id):
     conn.close()
     return student
 
+    def update_student(student_id, full_name, gender, age, class_name):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        UPDATE students
+        SET full_name=?, gender=?, age=?, class_name=?
+        WHERE student_id=?
+    """, (full_name, gender, age, class_name, student_id))
+
+    conn.commit()
+    conn.close()
+
+    def delete_student(student_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM students WHERE student_id=?",
+        (student_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
 
 if __name__ == "__main__":
     create_tables()
     create_default_users()
-    print("Database and tables created successfully!")
+
+    print(login("admin", "admin123"))
+    print(login("teacher", "teacher123"))
+
+    add_student(1, "John Doe", "Male", 20, "Year 1")
+
+    print(get_students())
+
+    print(search_student(1))
+
+    update_student(1, "John Smith", "Male", 21, "Year 2")
+    print(search_student(1))
+
+    delete_student(1)
+    print(get_students())
