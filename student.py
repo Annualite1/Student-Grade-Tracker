@@ -60,6 +60,46 @@ def add_student_menu():
         except Exception as e:
             print("Error:", e)
 
+def view_students():
+    """
+    Display all students in the database.
+    """
+    students = get_students()
+
+    if not students:
+        print("No students found.")
+        return
+
+    print("\n------ Student List ------")
+
+    for student in students:
+        print(f"ID: {student[0]}")
+        print(f"Name: {student[1]}")
+        print(f"Gender: {student[2]}")
+        print(f"Age: {student[3]}")
+        print(f"Class: {student[4]}")
+        print("-" * 30)
 
 if __name__ == "__main__":
-    add_student_menu()
+    while True:
+        print("\n===== Student Menu =====")
+        print("1. Add Student")
+        print("2. View Students")
+        print("0. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            add_student_menu()
+
+        elif choice == "2":
+            view_students()
+
+        elif choice == "0":
+            print("Goodbye!")
+            break
+
+        else:
+            print("Invalid choice. Please try again.")
+
+   
