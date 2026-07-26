@@ -48,3 +48,24 @@ def retrieve_grades():
             cursor.close()
             db.close()
 
+
+def update_grade():
+
+    try:
+        db = connect_db()
+        cursor = db.cursor()
+        print(retrieve_grades())
+        grade_id = input("Enter Student's id whom you want to upgrade his marks ")
+        mark = int(input("Enter new grade :"))
+        query = "UPDATE grades SET marks=? WHERE grade_id=?"
+        cursor.execute(query, (mark, grade_id))
+        db.commit()
+        print("Updated Marks Successfully!!")
+        
+    except Exception as e:
+        return ("Oooops Error", e)
+    finally:
+        if db:
+            cursor.close()
+            db.close()
+
