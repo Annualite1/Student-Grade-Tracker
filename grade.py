@@ -69,3 +69,23 @@ def update_grade():
             cursor.close()
             db.close()
 
+
+def delete_grade():
+    try:
+       db = connect_db()
+       cursor = db.cursor() 
+       print(retrieve_grades())
+       grade_id = int(input("Enter the grade id you want to delete: "))
+       query = "DELETE FROM grades WHERE grade_id=?"
+       cursor.execute(query, (grade_id, ))
+       db.commit()
+       if cursor.rowcount > 0:
+            print( f"grade with {grade_id} deleted successfully.")
+       else:
+            print(f"grade with {grade_id} was not found.")
+    except Exception as e:
+        return ("Oooops Error", e)
+    finally:
+        if db:
+            cursor.close()
+            db.close()
