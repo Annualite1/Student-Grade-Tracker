@@ -89,3 +89,22 @@ def delete_grade():
         if db:
             cursor.close()
             db.close()
+
+def student_average():
+    try: 
+        db = connect_db()
+        cursor = db.cursor()
+        print(get_students())
+        student_id = int(input("Enter Student to calculate his marks: "))
+        query = "SELECT AVG(marks) FROM grades where student_id = ?"
+        cursor.execute(query, (student_id, ))
+        avg = cursor.fetchone()[0]
+        print(f"Average: {avg}")
+        print(f"Student has grade {calculate_category(avg)}")
+        return(f"Average: {avg}")
+    except Exception as e:
+        return("Oooops Error:", e)
+    finally:
+        cursor.close()
+        db.close()
+
