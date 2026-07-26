@@ -78,3 +78,37 @@ def delete_subject():
         if db:
             cursor.close()
             db.close()
+
+def subject_modules():
+        while True:
+            print("\n===== Subjects part =====")
+            print("1. Add Subject")
+            print("2. View Subjects")
+            print("3. Update Subject")
+            print("4. Delete Subject")
+            print("0. Exit")
+
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                insert_subjects()
+
+            elif choice == "2":
+                subjects = retrieve_subjects()
+                print(subjects)
+
+            elif choice == "3":
+                update_subject()
+
+            elif choice == "4":
+                delete_subject()
+
+            elif choice == "0":
+                print("Goodbye!")
+                break
+
+            else:
+                print("Invalid choice. Please try again.")
+                
+if __name__ == "__main__":
+    subject_modules()
