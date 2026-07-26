@@ -20,13 +20,13 @@ def main_menu():
             student_menu()
 
         elif choice == "2":
-            subject_modules()
+            subject_menu()
 
         elif choice == "3":
-            grades_module()
+            grade_menu()
 
         elif choice == "4":
-            report_module()
+            report_menu()
 
         elif choice == "5":
             print("Thank you for using the system.")
