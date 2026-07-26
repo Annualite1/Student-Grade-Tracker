@@ -133,30 +133,39 @@ def search_student(student_id):
     conn.close()
     return student
 
-    def update_student(student_id, full_name, gender, age, class_name):
+
+def update_student(student_id, full_name, gender, age, class_name):
     conn = connect_db()
     cursor = conn.cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
         UPDATE students
         SET full_name=?, gender=?, age=?, class_name=?
         WHERE student_id=?
-    """, (full_name, gender, age, class_name, student_id))
+        """,
+        (full_name, gender, age, class_name, student_id),
+    )
 
     conn.commit()
+    rowcount = cursor.rowcount
     conn.close()
+    return rowcount > 0
 
-    def delete_student(student_id):
+
+def delete_student(student_id):
     conn = connect_db()
     cursor = conn.cursor()
 
     cursor.execute(
         "DELETE FROM students WHERE student_id=?",
-        (student_id,)
+        (student_id,),
     )
 
     conn.commit()
+    rowcount = cursor.rowcount
     conn.close()
+    return rowcount > 0
 
 
 if __name__ == "__main__":
