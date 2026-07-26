@@ -31,3 +31,35 @@ def validate_student(student_id, full_name, gender, age, class_name):
 
     return True
 
+
+
+
+
+def add_student_menu():
+    """
+    Get student information from the user and save it to the database.
+    """
+
+    student_id = input("Enter Student ID: ")
+    full_name = input("Enter Full Name: ")
+    gender = input("Enter Gender (Male/Female): ")
+    age = input("Enter Age: ")
+    class_name = input("Enter Class Name: ")
+
+    if validate_student(student_id, full_name, gender, age, class_name):
+        try:
+            add_student(
+                int(student_id),
+                full_name,
+                gender,
+                int(age),
+                class_name
+            )
+            print("Student added successfully!")
+
+        except Exception as e:
+            print("Error:", e)
+
+
+if __name__ == "__main__":
+    add_student_menu()
