@@ -29,3 +29,22 @@ def insert_grades():
             break
     db.close()
     print("Recorded Grades successfully!")
+
+
+def retrieve_grades():
+    try:
+       db = connect_db()
+       cursor = db.cursor()
+       cursor.execute(
+           """SELECT grades.grade_id, students.full_name, subjects.subject_name, grades.marks 
+           FROM grades JOIN subjects on grades.subject_id=subjects.subject_id 
+           JOIN students on grades.student_id=students.student_id""")
+       grades = cursor.fetchall()
+       return grades      
+    except Exception as e:
+        return ("Oooops Error", e)
+    finally:
+        if db:
+            cursor.close()
+            db.close()
+
