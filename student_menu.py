@@ -31,8 +31,8 @@ def student_menu():
         delete_student_menu()
 
       elif choice == "0":
-        print("Goodbye!")
+        print("Returning to main menu!")
         break
 
-    else:
+      else:
         print("Invalid choice. Please try again.")
