@@ -1,4 +1,4 @@
-from student import add_student_menu, view_students, search_student_menu, update_stdent_menu, delete_student_menu
+from student import add_student_menu, view_students, search_student_menu, update_student_menu, delete_student_menu
 from subjects_module import subject_modules
 from grade import grades_module
 from report import report_module
