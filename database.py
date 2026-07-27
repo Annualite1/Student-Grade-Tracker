@@ -61,8 +61,8 @@ def create_default_users():
     cursor = conn.cursor()
 
     users = [
-        ("admin", "admin123", "Admin"),
-        ("teacher", "teacher123", "Teacher"),
+        ("admin", "admin111", "Admin"),
+        ("teacher", "teacher111", "Teacher"),
     ]
 
     for user in users:
@@ -172,8 +172,8 @@ if __name__ == "__main__":
     create_tables()
     create_default_users()
 
-    print(login("admin", "admin123"))
-    print(login("teacher", "teacher123"))
+    print(login("admin", "admin111"))
+    print(login("teacher", "teacher111"))
 
     add_student(1, "John Doe", "Male", 20, "Year 1")
 
