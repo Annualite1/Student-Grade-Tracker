@@ -1,6 +1,6 @@
 # Student Grade Tracker
 
-A simple command-line app we built in Python (with SQLite for storage) that lets a teacher or admin log in and manage students, subjects, and grades — and pull up reports on how everyone's doing.
+A simple command-line app we built in Python (with mysql for storage) that lets a teacher or admin log in and manage students, subjects, and grades — and pull up reports on how everyone's doing.
 
 ## What it does
 
@@ -34,6 +34,7 @@ Student-Grade-Tracker/
 ├── report.py                # student/class reports, top & lowest student, subject stats
 ├── database.py               # sets up SQLite, creates tables, handles login
 └── README.md
+└──school.db                  
 ```
 
 ## Running it
@@ -64,17 +65,6 @@ Four tables: `users` (login info + role), `students`, `subjects`, and `grades` (
 | Member 4 | Reports | `report.py` |
 | Member 5 | Menus & tying it all together | `main.py`, `student_menu.py` |
 | Member 6 | Testing, README, screenshots & presentation | — |
-
-## Screenshots
-
-*(swap these placeholders for real screenshots before submitting — GitHub repo view, commit history, and the app actually running: login, each menu, and a sample report)*
-
-- [ ] GitHub repo / file structure
-- [ ] Commit history
-- [ ] App: login screen
-- [ ] App: main menu
-- [ ] App: student / subject / grade / report sub-menus
-- [ ] App: a sample report output
 
 ## Testing
 
