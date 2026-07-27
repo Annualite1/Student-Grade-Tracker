@@ -36,3 +36,14 @@ def student_menu():
 
       else:
         print("Invalid choice. Please try again.")
+
+def subject_menu():
+    subject_modules()
+
+
+def grade_menu():
+    grades_module()
+
+
+def report_menu():
+    report_module()
